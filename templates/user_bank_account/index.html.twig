@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UserBankAccount index{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="text-center">Utilisateurs et comptes bancaires</h1>
+
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>utilisateurs</th>
+                <th>iban</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user_bank_account in user_bank_accounts %}
+           <tr>
+                <td>{{ user_bank_account.id }}</td>
+                
+                <td>{{ user_bank_account.person }}</td>
+                <td>{{ user_bank_account.bankaccount }}</td>
+                <td>
+                    <a href="{{ path('user_bank_account_show', {'id': user_bank_account.id}) }}" class="btn btn-info">voir</a>
+                    <a href="{{ path('user_bank_account_edit', {'id': user_bank_account.id}) }}" class="btn btn-warning">éditer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_bank_account_new') }}">Ajouter</a>
+    <br>
+    <a href="{{ path('index') }}">Retour</a>
+
+</div>
+{% endblock %}

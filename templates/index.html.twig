@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+{% block title %}Page d'accueil{% endblock %}
+
+
+{% block body %}
+
+{% if is_granted('ROLE_ADMIN') %}
+<nav class="navbar navbar-dark bg-dark">
+    <a href="{{ path('logout') }}" class="btn btn-danger">Me déconnecter</a>
+</nav>
+<div class="container mt-5">
+    <h1 class="text-center">Hello {{ app.user.username }}, </br><span class="h2">bienvenue sur ton interface
+            administrateur</span>.</h1>
+
+    <ul class="mt-3">
+        <li><a href="{{ path('user_index') }}">Accéder à la gestion des utilisateurs</a></li>
+        <li><a href="{{ path('bank_account_index') }}">Accéder à la gestion des comptes bancaires</a></li>
+        <li><a href="{{ path('user_bank_account_index') }}">Acceder aux liaisons des comptes entre les utilisateurs</a>
+        </li>
+    </ul>
+
+    {% endif %}
+
+    {% if is_granted('ROLE_USER') %}
+
+    <div {% if is_granted('ROLE_ADMIN') %} class="d-none" {% endif %}>
+
+        <nav class="navbar navbar-dark bg-dark">
+            <a href="{{ path('logout') }}" class="btn btn-danger">Me déconnecter</a>
+        </nav>
+        <h1 class="text-center mt-5">Bienvenue, <span class="font-weight-bold">{{ app.user.username }}</span>.</h1>
+        
+        <div class="container mt-3">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>IBAN</th>
+                        <th>Solde</th>
+                    </tr>
+                      {% for bankAccountOwned in app.user.bankAccountOwned %}
+                    <tr>
+                        <td> {{ bankAccountOwned.bankaccount.iban }} </td>
+                        <td> {{ bankAccountOwned.bankaccount.balance }} €</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <h2 class="h3 mt-5">Liste de mes bénéficiaires</h2>
+            <table class="table">
+                <tbody>
+                  
+                    <tr>
+                        <th>IBAN</th>
+                    </tr>
+                      {% for beneficiaries in app.user.beneficiaries %}
+                    <tr>
+                        <td> {{ beneficiaries.iban }} </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+                 <a href="{{ path('beneficiary_new', { 'id': app.user.id })  }}" class="btn btn-secondary">Ajouter un bénéficiaire</a>
+
+             <h2 class="h3 mt-5">Liste de mes transactions</h2>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>De</th>
+                        <th>Vers</th>
+                        <th>Montant</th>
+                    </tr>
+                     {% for transactions in app.user.transactions %}
+                    <tr>
+                        <td> {{ transactions.debitedAccount }}</td>
+                        <td> {{ transactions.creditedAccount}}</td>
+                        <td> {{ transactions.amount}} €</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+                 <a href="{{ path('transaction_new', { 'id': app.user.id })  }}" class="btn btn-secondary">Faire une transaction</a>
+        </div>
+    </div>
+
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New BankAccount{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="text-center">Créer un nouveau compte bancaire</h1>
+
+    {{ include('bank_account/_form.html.twig') }}
+
+    <a href="{{ path('bank_account_index') }}">Retour</a>
+</div>
+{% endblock %}

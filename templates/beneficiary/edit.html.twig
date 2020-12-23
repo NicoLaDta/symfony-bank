@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Beneficiary{% endblock %}
+
+{% block body %}
+    <h1>Edit Beneficiary</h1>
+
+    {{ include('beneficiary/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('beneficiary_index') }}">back to list</a>
+
+    {{ include('beneficiary/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Éditer <span class="font-weight-bold">{{ user.username }}</span></h1>
+
+    {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('user_index') }}">Retour</a>
+
+    {{ include('user/_delete_form.html.twig') }}
+</div>
+{% endblock %}

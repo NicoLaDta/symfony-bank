@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Transaction index{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="text-center">Transaction index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for transaction in transactions %}
+            <tr>
+                <td>{{ transaction.id }}</td>
+                <td>{{ transaction.amount }} €</td>
+                <td>{{ transaction.date ? transaction.date|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('transaction_show', {'id': transaction.id}) }}" class="btn btn-info">voir</a>
+                    <a href="{{ path('transaction_edit', {'id': transaction.id}) }}" class="btn btn-warning">étiter</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('transaction_new', { 'id': app.user.id }) }}">Ajouter un bénéficiaire</a>
+    <br>
+    <a href="{{ path('index') }}">Retour vers l'accueil</a>
+</div>
+{% endblock %}

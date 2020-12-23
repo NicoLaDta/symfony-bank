@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Beneficiary{% endblock %}
+
+{% block body %}
+<div class="mt-5 container">
+    <h1 class="text-center">Créer un nouveau bénéficiare</h1>
+
+    {{ include('beneficiary/_form.html.twig') }}
+
+    <a href="{{ path('beneficiary_index') }}">Voir la liste de mes bénéficiaires</a>
+    <br>
+    <a href="{{ path('index') }}">Retour</a>
+</div>
+{% endblock %}

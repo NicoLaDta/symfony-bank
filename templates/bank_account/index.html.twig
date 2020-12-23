@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BankAccount index{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="text-center mt-5">Liste des comptes</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Iban</th>
+                <th>Balance</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bank_account in bank_accounts %}
+            <tr>
+                <td>{{ bank_account.id }}</td>
+                <td>{{ bank_account.iban }}</td>
+                <td>{{ bank_account.balance }} €</td>
+                <td>
+                    <a href="{{ path('bank_account_show', {'id': bank_account.id}) }}" class="btn btn-info">voir</a>
+                    <a href="{{ path('bank_account_edit', {'id': bank_account.id}) }}" class="btn btn-warning">éditer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('bank_account_new') }}">Créer un nouveau compte</a>
+    <br>
+    <a href="{{ path('index') }}">Retour</a>
+</div>
+{% endblock %}

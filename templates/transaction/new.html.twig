@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Transaction{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="text-center">Nouvelle transaction</h1>
+
+    {{ include('transaction/_form.html.twig') }}
+
+    <a href="{{ path('transaction_index') }}">Voir la liste de mes transactions</a>
+    <br>
+    <a href="{{ path('index') }}">Retour vers l'accueil</a>
+</div>
+{% endblock %}
